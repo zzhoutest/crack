@@ -53,6 +53,28 @@ public class Main {
         return new String(chars);
     }
 
+    public boolean pape (String s) {
+        if (s == null || s.length() == 0) return false;
+        if (s.length() == 1) return true;
+        int[] chars = new int[128];
+        char c;
+        s = s.toLowerCase();
+        for (int i = 0; i < s.length(); i++) {
+            c = s.charAt(i);
+            if (c != ' ') {
+                chars[c] = chars[c] + 1;
+            }
+        }
+        int odd = 0;
+        for (int i = 0; i < 128; i++) {
+            if (chars[i] % 2 != 0) {
+                odd++;
+                if (odd > 1) return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         // write your code here
         Main app = new Main();
@@ -60,5 +82,6 @@ public class Main {
         System.out.println("1.1 The given string is unique: " + app.isUnique(""));
         System.out.println("1.2 The given 2 strings are permutation: " + app.checkPermutation("abc", "1ba"));
         System.out.println("1.3 URLify the given string: " + app.urlify("Mr John Smith  ", 15));
+        System.out.println("1.4 The given string is Palindrome Permutation: " + app.pape("Tact Coa"));
     }
 }
