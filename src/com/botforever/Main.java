@@ -75,6 +75,50 @@ public class Main {
         return true;
     }
 
+    public boolean oneAway(String s1, String s2) {
+        if (s1 == null || s2 == null) return false;
+        int l1 = s1.length(), l2 = s2.length();
+        if (Math.abs(l1 - l2) > 1) return false;
+        boolean diff = false;
+        if (l1 == l2) {
+            for (int i = 0; i < l1; i++) {
+                if (s1.charAt(i) != s2.charAt(i)) {
+                    if (diff) {
+                        return false;
+                    } else {
+                        diff = true;
+                    }
+                }
+            }
+            return true;
+        } else {
+            String ls, ss;
+            if (l1 > l2) {
+                ls = s1;
+                ss = s2;
+            } else {
+                ls = s2;
+                ss = s1;
+            }
+            int j = 0;
+            for (int i = 0; i < ls.length(); i++) {
+                if (j < ss.length() && ls.charAt(i) != ss.charAt(j)) {
+                    if (diff) {
+                        return false;
+                    } else {
+                        diff = true;
+                    }
+                } else {
+                    j++;
+                    if (j == ss.length()) {
+                        j = ss.length() - 1;
+                    }
+                }
+            }
+            return true;
+        }
+    }
+
     public static void main(String[] args) {
         // write your code here
         Main app = new Main();
@@ -83,5 +127,6 @@ public class Main {
         System.out.println("1.2 The given 2 strings are permutation: " + app.checkPermutation("abc", "1ba"));
         System.out.println("1.3 URLify the given string: " + app.urlify("Mr John Smith  ", 15));
         System.out.println("1.4 The given string is Palindrome Permutation: " + app.pape("Tact Coa"));
+        System.out.println("1.5 The given 2 strings are one away: " + app.oneAway("pale", "bale"));
     }
 }
