@@ -119,14 +119,43 @@ public class Main {
         }
     }
 
+    public String stringCompression(String s) {
+        if (s == null) return null;
+        int len = s.length();
+        if (len < 3) return s;
+
+        int count = 0;
+        StringBuilder sb = new StringBuilder();
+        char cc = s.charAt(0);
+        sb.append(cc);
+        count++;
+
+        for (int i = 1; i < len; i++) {
+            if (cc == s.charAt(i)) {
+                count++;
+            } else {
+                sb.append(count);
+                cc = s.charAt(i);
+                count = 1;
+
+                sb.append(cc);
+
+            }
+        }
+        sb.append(count);
+        if (sb.length() < len) return sb.toString();
+        else return s;
+    }
     public static void main(String[] args) {
         // write your code here
         Main app = new Main();
+
 
         System.out.println("1.1 The given string is unique: " + app.isUnique(""));
         System.out.println("1.2 The given 2 strings are permutation: " + app.checkPermutation("abc", "1ba"));
         System.out.println("1.3 URLify the given string: " + app.urlify("Mr John Smith  ", 15));
         System.out.println("1.4 The given string is Palindrome Permutation: " + app.pape("Tact Coa"));
         System.out.println("1.5 The given 2 strings are one away: " + app.oneAway("pale", "bale"));
+        System.out.println("1.6 The given string is compressed: " + app.stringCompression("aaa"));
     }
 }
