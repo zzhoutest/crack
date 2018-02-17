@@ -1,6 +1,10 @@
 package com.botforever;
 
+import com.botforever.ds.MyLinkedList;
+import com.botforever.ds.MyNode;
+
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Main {
 
@@ -146,16 +150,126 @@ public class Main {
         if (sb.length() < len) return sb.toString();
         else return s;
     }
+
+    public void deleteDups() {
+        int[] array = {4,6,7,5,4,5,6,7};
+        MyLinkedList mll = new MyLinkedList(array);
+        System.out.print("2.1 Before: ");
+        mll.print();
+        HashSet<Integer> set = new HashSet<Integer>();
+        MyNode node = mll.head;
+        MyNode prev = null;
+        while (node != null) {
+            if (set.contains(node.data)) {
+                prev.next = node.next;
+            } else {
+                set.add(node.data);
+                prev = node;
+            }
+            node = node.next;
+        }
+        System.out.print("2.1 After: ");
+        mll.print();
+    }
+
+    public void deleteDups2() {
+        int[] array = {4,6,7,5,4,5,6,7,3};
+        MyLinkedList mll = new MyLinkedList(array);
+        System.out.print("2.1 Before: ");
+        mll.print();
+        MyNode node = mll.head;
+
+        while (node != null) {
+            MyNode prev = node;
+            MyNode run = node.next;
+            while (run != null) {
+                if (run.data == node.data) {
+                    prev.next = run.next;
+                } else {
+                    prev = run;
+                }
+                run = run.next;
+            }
+            node = node.next;
+        }
+        System.out.print("2.1 After: ");
+        mll.print();
+    }
+
+    public void printKthToLast(int k) {
+        int[] array = {4,6,7,5,4,5,6,7,3};
+        MyLinkedList mll = new MyLinkedList(array);
+        System.out.print("2.2 LinkedList: ");
+        mll.print();
+        if (k >= mll.length()) {
+            System.out.format("2.2 k=%d is larger than the list length %d.%n", k, mll.length());
+        } else {
+            int i = 0;
+            MyNode end = mll.head;
+            while (i <= k) {
+                end = end.next;
+                i++;
+            }
+            MyNode run = mll.head;
+            while (end != null) {
+                run = run.next;
+                end = end.next;
+            }
+            System.out.format("2.2 k=%dth to last is: %d%n", k, run.data);
+        }
+    }
+
+    public void partition() {
+        int[] array = {3,5,8,5,10,2,1};
+        int par = 5;
+        MyLinkedList mll = new MyLinkedList(array);
+        System.out.print("2.4 LinkedList: ");
+        mll.print();
+        MyNode run = null;
+        MyLinkedList sl = null, ll = null;
+        run = mll.head;
+        while (run != null) {
+            if (run.data < par) {
+                if (sl == null) {
+                    sl = new MyLinkedList(new MyNode(run.data));
+                } else {
+                    sl.append(run.data);
+                }
+            } else {
+                if (ll == null) {
+                    ll = new MyLinkedList(new MyNode(run.data));
+                } else {
+                    ll.append(run.data);
+                }
+            }
+            run = run.next;
+        }
+        if (sl == null) {
+            sl = ll;
+        } else {
+            run = sl.head;
+            while (run.next != null) {
+                run = run.next;
+            }
+            run.next = ll.head;
+        }
+        System.out.print("2.4 Partitioned LinkedList: ");
+        sl.print();
+    }
+
     public static void main(String[] args) {
         // write your code here
         Main app = new Main();
 
-
-        System.out.println("1.1 The given string is unique: " + app.isUnique(""));
-        System.out.println("1.2 The given 2 strings are permutation: " + app.checkPermutation("abc", "1ba"));
-        System.out.println("1.3 URLify the given string: " + app.urlify("Mr John Smith  ", 15));
-        System.out.println("1.4 The given string is Palindrome Permutation: " + app.pape("Tact Coa"));
-        System.out.println("1.5 The given 2 strings are one away: " + app.oneAway("pale", "bale"));
+        app.partition();
+        app.printKthToLast(8);
+        app.deleteDups2();
+        app.deleteDups();
         System.out.println("1.6 The given string is compressed: " + app.stringCompression("aaa"));
+        System.out.println("1.5 The given 2 strings are one away: " + app.oneAway("pale", "bale"));
+        System.out.println("1.4 The given string is Palindrome Permutation: " + app.pape("Tact Coa"));
+        System.out.println("1.3 URLify the given string: " + app.urlify("Mr John Smith  ", 15));
+        System.out.println("1.2 The given 2 strings are permutation: " + app.checkPermutation("abc", "1ba"));
+        System.out.println("1.1 The given string is unique: " + app.isUnique(""));
     }
 }
