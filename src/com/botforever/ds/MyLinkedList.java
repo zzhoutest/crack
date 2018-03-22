@@ -1,14 +1,14 @@
 package com.botforever.ds;
 
 public class MyLinkedList {
-    public MyNode head = null;
+    public MyLinkedListNode head = null;
 
-    public MyLinkedList(MyNode h) {
+    public MyLinkedList(MyLinkedListNode h) {
         head = h;
     }
 
     public MyLinkedList(int[] array) {
-        MyNode node = new MyNode(array[0]);
+        MyLinkedListNode node = new MyLinkedListNode(array[0]);
         this.head = node;
 
         for (int i = 1; i < array.length; i++) {
@@ -18,8 +18,8 @@ public class MyLinkedList {
     }
 
     public void append(int d) {
-        MyNode end = new MyNode(d);
-        MyNode node = head;
+        MyLinkedListNode end = new MyLinkedListNode(d);
+        MyLinkedListNode node = head;
         while (node.next != null) {
             node = node.next;
         }
@@ -27,7 +27,7 @@ public class MyLinkedList {
     }
 
     public void delete(int d) {
-        MyNode node = head;
+        MyLinkedListNode node = head;
         if (node.data == d) {
             head = head.next;
         }
@@ -42,7 +42,7 @@ public class MyLinkedList {
     }
 
     public void print() {
-        MyNode node = head;
+        MyLinkedListNode node = head;
         while (node != null) {
             System.out.print(node.data);
             node = node.next;
@@ -55,7 +55,7 @@ public class MyLinkedList {
 
     public int length()  {
         int l = 0;
-        MyNode n = head;
+        MyLinkedListNode n = head;
         while (n != null) {
             l++;
             n = n.next;

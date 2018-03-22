@@ -1,10 +1,10 @@
 package com.botforever.ds;
 
 public class MyQueue {
-    private MyNode first, last;
+    private MyLinkedListNode first, last;
 
     public void add(int data) {
-        MyNode node = new MyNode(data);
+        MyLinkedListNode node = new MyLinkedListNode(data);
         if (first == null) {
             first = node;
             last = node;
@@ -14,15 +14,15 @@ public class MyQueue {
         }
     }
 
-    public MyNode remove() {
+    public MyLinkedListNode remove() {
         if (first == null) return first;
-        MyNode node = first;
+        MyLinkedListNode node = first;
         first = first.next;
         if (first == null) last = null;
         return node;
     }
 
-    public  MyNode peek() {
+    public MyLinkedListNode peek() {
         return first;
     }
 

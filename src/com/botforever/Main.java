@@ -1,9 +1,10 @@
 package com.botforever;
 
+import com.botforever.ds.MyGraph;
 import com.botforever.ds.MyLinkedList;
-import com.botforever.ds.MyNode;
+import com.botforever.ds.MyLinkedListNode;
+import com.botforever.ds.MyStack;
 
-import java.util.HashMap;
 import java.util.HashSet;
 
 public class Main {
@@ -157,8 +158,8 @@ public class Main {
         System.out.print("2.1 Before: ");
         mll.print();
         HashSet<Integer> set = new HashSet<Integer>();
-        MyNode node = mll.head;
-        MyNode prev = null;
+        MyLinkedListNode node = mll.head;
+        MyLinkedListNode prev = null;
         while (node != null) {
             if (set.contains(node.data)) {
                 prev.next = node.next;
@@ -177,11 +178,11 @@ public class Main {
         MyLinkedList mll = new MyLinkedList(array);
         System.out.print("2.1 Before: ");
         mll.print();
-        MyNode node = mll.head;
+        MyLinkedListNode node = mll.head;
 
         while (node != null) {
-            MyNode prev = node;
-            MyNode run = node.next;
+            MyLinkedListNode prev = node;
+            MyLinkedListNode run = node.next;
             while (run != null) {
                 if (run.data == node.data) {
                     prev.next = run.next;
@@ -205,12 +206,12 @@ public class Main {
             System.out.format("2.2 k=%d is larger than the list length %d.%n", k, mll.length());
         } else {
             int i = 0;
-            MyNode end = mll.head;
+            MyLinkedListNode end = mll.head;
             while (i <= k) {
                 end = end.next;
                 i++;
             }
-            MyNode run = mll.head;
+            MyLinkedListNode run = mll.head;
             while (end != null) {
                 run = run.next;
                 end = end.next;
@@ -225,19 +226,19 @@ public class Main {
         MyLinkedList mll = new MyLinkedList(array);
         System.out.print("2.4 LinkedList: ");
         mll.print();
-        MyNode run = null;
+        MyLinkedListNode run = null;
         MyLinkedList sl = null, ll = null;
         run = mll.head;
         while (run != null) {
             if (run.data < par) {
                 if (sl == null) {
-                    sl = new MyLinkedList(new MyNode(run.data));
+                    sl = new MyLinkedList(new MyLinkedListNode(run.data));
                 } else {
                     sl.append(run.data);
                 }
             } else {
                 if (ll == null) {
-                    ll = new MyLinkedList(new MyNode(run.data));
+                    ll = new MyLinkedList(new MyLinkedListNode(run.data));
                 } else {
                     ll.append(run.data);
                 }
@@ -257,10 +258,55 @@ public class Main {
         sl.print();
     }
 
+    public void sortStack() {
+        int[] array = {4,6,7,5,4,1,5,6,7,3};
+        MyStack ms = new MyStack(array);
+        System.out.print("3.5 Before: ");
+        ms.print();
+        System.out.print("3.5 After: ");
+        ms.sort();
+        ms.print();
+    }
+
+    public void route2Nodes() {
+        String[][] array = {{"0","1"},{"1","2"},{"2","0","3"},{"3","2"},{"4","6"},{"5","4"},{"6","5"}};
+        MyGraph mg = new MyGraph(array);
+        //mg.print();
+        //mg.dsf("6");
+        mg.bsf("2", "4");
+        System.out.println();
+    }
+
+    public int tripleStep(int n) {
+        if (n == 1) {
+            return 1;
+        } else if (n == 2) {
+            return 2;
+        } else if (n == 3) {
+            return 4;
+        } else {
+            return tripleStep(n - 3) + tripleStep(n - 2) + tripleStep(n - 3);
+        }
+    }
+
+    public int countWays(int n) {
+        if (n < 0) {
+            return 0;
+        } else if (n == 0) {
+            return 1;
+        } else {
+            return countWays(n-1) + countWays(n-2) + countWays(n-3);
+        }
+    }
+
     public static void main(String[] args) {
         // write your code here
         Main app = new Main();
 
+        System.out.println("8.1 The total possibile ways to hop: " + app.tripleStep(6) + 7);
+        System.out.println("8.1 The total possibile ways to hop: " + app.countWays(6));
+        app.route2Nodes();
+        app.sortStack();
         app.partition();
         app.printKthToLast(8);
         app.deleteDups2();
